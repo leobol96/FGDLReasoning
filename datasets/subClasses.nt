@@ -1,1 +1,1 @@
-<http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping> <http://www.w3.org/2000/01/rdf-schema#subClassOf>  <http://www.co-ode.org/ontologies/pizza/pizza.owl#MeatTopping> .
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#CheeseTopping> rdfs:subClassOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianTopping> .
