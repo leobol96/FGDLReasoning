@@ -48,6 +48,18 @@ def get_properties(ontology, reload):
 
     return properties
 
+def get_rules(ontology, reload):
+    """
+    This function returns the rules of an ontology
+    :param ontology:
+    :return:
+    """
+    onto = ow.get_ontology(ontology)
+    onto.load(reload=reload)
+    rules = list(onto.rules())
+
+    return rules
+
 
 def save_subclasses(input_ontology, n_line):
     os.system('java -jar kr_functions.jar ' + 'saveAllSubClasses' + " " + input_ontology)
@@ -62,6 +74,8 @@ def save_subclasses(input_ontology, n_line):
     with open('datasets/subClasses.nt', 'w') as sublasses:
         for sub_class in to_keep:
             sublasses.write(sub_class)
+
+    #to_keep = ['<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.w3.org/2000/01/rdf-schema#subClassOf>  <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept> .']
 
     return to_keep
 
@@ -84,3 +98,21 @@ def forget_copy_result(ontology, method, signature_file):
     os.system('java -cp lethe-standalone.jar uk.ac.man.cs.lethe.internal.application.ForgettingConsoleApplication '
               '--owlFile ' + ontology + ' --method ' + method + ' --signature ' + signature_file)
     shutil.copy(os.path.abspath(os.getcwd()) + '/result.owl', os.path.abspath(os.getcwd()) + '/datasets')
+
+
+def get_element(explanation):
+    to_return = []
+    string = ''
+    open = False
+    for char in explanation:
+
+        if char == '<':
+            string = ''
+            open = True
+        elif char == '>':
+            if string not in to_return:to_return.append(string)
+            open = False
+        elif open:
+            string += char
+
+    return to_return[1:]

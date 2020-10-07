@@ -1,6 +1,7 @@
 import os
 import shutil
 from os import listdir
+import filecmp
 
 import common_functions as common
 
@@ -9,7 +10,7 @@ if __name__ == "__main__":
     input_ontology = 'datasets/pizza.owl'
     signature = 'datasets/signature.txt'
     inputSubclassStatements = "datasets/subClasses.nt"
-    method = '1'
+    method = '3'
     exp_files_list = []
     sub_classes_list = []
     total_explanations_list = []
@@ -26,9 +27,6 @@ if __name__ == "__main__":
         if 'exp' not in file:
             exp_files_list.remove(file)
 
-    # Get the classes and the properties from the ontology
-    classes_properties = common.get_classes(input_ontology, False) + common.get_properties(input_ontology, False)
-
     # Every sublass
     for idx_class, sub_class in enumerate(sub_classes_list):
 
@@ -43,12 +41,9 @@ if __name__ == "__main__":
         with open(signature_file_name, 'w') as signature_file:
             signature_file.write(sub_class)
 
-        # For each class in the ontology
-        for cla_pro in classes_properties:
-            if '<' + cla_pro.iri + '>' in exp_string and cla_pro.iri not in url_in_explanation:
-                url_in_explanation.append(cla_pro.iri)
+        elements = common.get_element(exp_string)
 
-        for element in url_in_explanation:
+        for element in elements:
             if '<' + element + '>' not in sub_class and element in exp_string:
                 tmp = [element]
                 common.write_signature_to_remove(tmp, signature)
