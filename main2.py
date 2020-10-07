@@ -7,7 +7,7 @@ import common_functions as common
 if __name__ == "__main__":
 
     input_ontology = 'datasets/pizza.owl'
-    signature = 'datasets/signature2.txt'
+    signature = 'datasets/signature.txt'
     inputSubclassStatements = "datasets/subClasses.nt"
     method = '1'
     exp_files_list = []
@@ -49,7 +49,7 @@ if __name__ == "__main__":
                 url_in_explanation.append(cla_pro.iri)
 
         for element in url_in_explanation:
-            if element not in sub_class and element in exp_string:
+            if '<' + element + '>' not in sub_class and element in exp_string:
                 tmp = [element]
                 common.write_signature_to_remove(tmp, signature)
                 common.forget_copy_result('datasets/exp-' + str(idx_class + 1) + '.omn', method, signature)
