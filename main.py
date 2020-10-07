@@ -12,11 +12,13 @@ if __name__ == "__main__":
     method = '1'
     url_classes = []
     url_to_remove = []
+    explanations_list = []
 
     # Save the explanation
     common.save_explanations(input_ontology, inputSubclassStatements)
     # Get the explanation as string
     exp_string = common.get_string_from_file(explanation)
+    if exp_string not in explanations_list: explanations_list.append(exp_string)
     # Get the classes and the properties from the ontology
     classes_properties = common.get_classes(input_ontology, False) + common.get_properties(input_ontology, False)
 
@@ -37,10 +39,13 @@ if __name__ == "__main__":
         input_ontology = 'datasets/result.owl'
 
         # Save the explanations
-        common.save_explanations(input_ontology,inputSubclassStatements)
+        common.save_explanations(input_ontology, inputSubclassStatements)
+        # Get the explanation as string
+        exp_string = common.get_string_from_file(explanation)
+        if exp_string not in explanations_list: explanations_list.append(exp_string)
         # Get the sentence to prove as a string
         sentence_string = common.get_string_from_file(inputSubclassStatements)
-        # Get classes and properties from the onology
+        # Get classes and properties from the ontology
         classes_properties = common.get_classes(input_ontology, True) + common.get_properties(input_ontology, True)
 
         # For each class in the ontology
@@ -52,3 +57,13 @@ if __name__ == "__main__":
 
         common.write_signature_to_remove(url_to_remove, signature)
         common.forget_copy_result(input_ontology, method, signature)
+
+    # Print the sentence to prove
+    print('---------------------------------------------------TO PROVE-------------------------------------------------')
+    print(common.get_string_from_file(inputSubclassStatements))
+    # Print the explanation
+    print('-------------------------------------------------DL REASONING-----------------------------------------------')
+    for ex in explanations_list:
+        print(ex)
+
+    print('------------------------------------------------------END---------------------------------------------------')
