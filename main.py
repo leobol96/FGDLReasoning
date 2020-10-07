@@ -6,7 +6,7 @@ import time
 if __name__ == "__main__":
 
     input_ontology = 'datasets/pizza.owl'
-    explanation = 'datasets/exp-1.owl'
+    explanation = 'datasets/exp-1.omn'
     signature = 'datasets/signature2.txt'
     inputSubclassStatements = "datasets/subClasses.nt"
     method = '1'

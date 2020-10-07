@@ -51,7 +51,6 @@ def get_properties(ontology, reload):
 
 def save_explanations(ontology, sub_sentence):
     """
-
     :param ontology: Ontology where check for the explanations
     :param sub_sentence: Sub sequence for which you want to find the explanation
     """
