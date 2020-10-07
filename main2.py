@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
         # For each class in the ontology
         for cla_pro in classes_properties:
-            if cla_pro.iri in exp_string and cla_pro.iri not in url_in_explanation:
+            if '<' + cla_pro.iri + '>' in exp_string and cla_pro.iri not in url_in_explanation:
                 url_in_explanation.append(cla_pro.iri)
 
         for element in url_in_explanation:
