@@ -49,6 +49,22 @@ def get_properties(ontology, reload):
     return properties
 
 
+def save_subclasses(input_ontology, n_line):
+    os.system('java -jar kr_functions.jar ' + 'saveAllSubClasses' + " " + input_ontology)
+    to_keep = []
+
+    with open('datasets/subClasses.nt', 'r') as sublasses:
+        for idx, sub_class in enumerate(sublasses):
+            to_keep.append(sub_class)
+            if idx + 1 == n_line:
+                break
+
+    with open('datasets/subClasses.nt', 'w') as sublasses:
+        for sub_class in to_keep:
+            sublasses.write(sub_class)
+
+    return to_keep
+
 def save_explanations(ontology, sub_sentence):
     """
     :param ontology: Ontology where check for the explanations
