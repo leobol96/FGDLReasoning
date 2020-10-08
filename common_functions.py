@@ -75,8 +75,6 @@ def save_subclasses(input_ontology, n_line):
         for sub_class in to_keep:
             sublasses.write(sub_class)
 
-    #to_keep = ['<http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping> <http://www.w3.org/2000/01/rdf-schema#subClassOf>  <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept> .']
-
     return to_keep
 
 def save_explanations(ontology, sub_sentence):
@@ -116,3 +114,14 @@ def get_element(explanation):
             string += char
 
     return to_return[1:]
+
+
+def write_result(result_list):
+    """
+    This Function write the results in FG_EXPLANATIONS.txt file
+    :param result_list: List of explanations
+    """
+    with open('FG_EXPLANATIONS.txt', 'w') as file:
+        for element in result_list:
+            file.write(element)
+            file.write('\n')
