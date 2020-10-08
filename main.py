@@ -7,7 +7,7 @@ if __name__ == "__main__":
 
     input_ontology = 'datasets/pizza.owl'
     explanation = 'datasets/exp-1.omn'
-    signature = 'datasets/signature2.txt'
+    signature = 'datasets/signature.txt'
     inputSubclassStatements = "datasets/subClasses.nt"
     method = '1'
     url_classes = []
@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     # For each class in the ontology
     for cla_pro in classes_properties:
-        if cla_pro.iri not in exp_string and cla_pro.iri not in url_to_remove:
+        if '<' + cla_pro.iri + '>' not in exp_string and cla_pro.iri not in url_to_remove:
             url_to_remove.append(cla_pro.iri)
 
     common.write_signature_to_remove(url_to_remove, signature)
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
         # For each class in the ontology
         for cla_pro in classes_properties:
-            if cla_pro.iri not in sentence_string and cla_pro.iri not in url_to_remove:
+            if '<' + cla_pro.iri + '>' not in sentence_string and cla_pro.iri not in url_to_remove:
                 url_to_remove.append(cla_pro.iri)
                 find = True
                 break
