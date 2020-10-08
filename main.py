@@ -12,7 +12,8 @@ if __name__ == "__main__":
     total_explanations_list = []
 
     # Save sub_lasses
-    sub_classes_list = common.save_subclasses(input_ontology, 3)
+    sub_classes_list = common.save_subclasses(input_ontology, 4)
+    #sub_classes_list = common.read_sublasses()
 
     # Get all the justifications file
     exp_files_list = listdir(os.path.abspath(os.getcwd()) + '/datasets/')
@@ -78,6 +79,9 @@ if __name__ == "__main__":
             for cla_pro in classes_properties:
                 if '<' + cla_pro.iri + '>' not in sentence_string and cla_pro.iri not in url_to_remove:
                     url_to_remove.append(cla_pro.iri)
+                    explanations_list.append('\n########### FORGETTING ##############')
+                    explanations_list.append(cla_pro.iri)
+                    explanations_list.append('#####################################\n')
                     find = True
                     break
 
@@ -88,6 +92,7 @@ if __name__ == "__main__":
 
     try:
         os.remove('result.owl')
+        os.remove('datasets/result.owl')
         os.remove('datasets/sentence_to_prove.nt')
         os.remove('datasets/signature.txt')
         os.remove('datasets/exp-1.omn')

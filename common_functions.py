@@ -48,6 +48,7 @@ def get_properties(ontology, reload):
 
     return properties
 
+
 def get_rules(ontology, reload):
     """
     This function returns the rules of an ontology
@@ -76,6 +77,16 @@ def save_subclasses(input_ontology, n_line):
             sublasses.write(sub_class)
 
     return to_keep
+
+
+def read_sublasses():
+    to_return = []
+    with open('datasets/subClasses.nt', 'r') as sublasses:
+        for line in sublasses:
+            to_return.append(line)
+
+    return to_return
+
 
 def save_explanations(ontology, sub_sentence):
     """
@@ -108,7 +119,7 @@ def get_element(explanation):
             string = ''
             open = True
         elif char == '>':
-            if string not in to_return:to_return.append(string)
+            if string not in to_return: to_return.append(string)
             open = False
         elif open:
             string += char
