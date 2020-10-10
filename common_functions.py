@@ -1,6 +1,7 @@
 import os
 import random
 import shutil
+from itertools import count
 
 import owlready2 as ow
 from sklearn.feature_extraction.text import CountVectorizer
@@ -196,18 +197,23 @@ def get_list_similarity(strings_list):
     :param strings_list: list of element to compare
     :return: Similarity between strings number between 0 and 1
     """
-
     # Object to convert a list of documents in a matrix of token counts
     co_vec = CountVectorizer()
-    # Learn a vocabulary dictionary of all tokens in the raw documents.
-    # Transform documents to document-term matrix.
-    strings_matrix = co_vec.fit_transform(strings_list)
-    # Transform the matrix in array
-    strings_matrix = strings_matrix.toarray()
-    # Calculate the cosine similarity between each vector in the list
-    c_sim = cosine_similarity(strings_matrix)
+    total_similarity = 0
 
-    return sum(c_sim[0])/len(c_sim)
+    for idx_element in range(len(strings_list) - 1):
+        string_to_compare = [strings_list[idx_element], strings_list[idx_element+1]]
+        # Learn a vocabulary dictionary of all tokens in the raw documents.
+        # Transform documents to document-term matrix.
+        strings_matrix = co_vec.fit_transform(string_to_compare)
+        # Transform the matrix in array
+        strings_matrix = strings_matrix.toarray()
+        # Calculate the cosine similarity between each vector in the list
+        c_sim = cosine_similarity(strings_matrix)
+        # Calculate the difference between the value first explanation and the second
+        total_similarity += (c_sim[0][0] - c_sim[0][1])
+
+    return total_similarity/len(strings_list)
 
 
 

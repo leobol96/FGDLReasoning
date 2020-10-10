@@ -106,7 +106,8 @@ if __name__ == "__main__":
                 common.forget_copy_result(input_ontology, method, signature)
 
         print("The value of the similarity is:" + str(common.get_list_similarity(explanations_list_similarity)))
-
+        explanations_list.append('\n########### SIMILARITY ##############')
+        explanations_list.append(str(common.get_list_similarity(explanations_list_similarity)) + '\n')
         total_explanations_list = total_explanations_list + explanations_list
 
     try:
