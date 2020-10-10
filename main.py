@@ -19,6 +19,7 @@ if __name__ == "__main__":
     # Every sublass
     for sub_class in sub_classes_list:
 
+        explanations_list_similarity = []
         explanations_list = []
         input_ontology = 'datasets/pizza.owl'
         url_to_remove = []
@@ -44,6 +45,7 @@ if __name__ == "__main__":
         if exp_string not in explanations_list:
             explanations_list.append('-------------------------------------------------REMOVE BULK-----------------------------------------------')
             explanations_list.append(exp_string)
+            explanations_list_similarity.append(exp_string)
 
         # Get the classes and the properties from the ontology
         classes = common.get_classes(input_ontology, False)
@@ -83,6 +85,7 @@ if __name__ == "__main__":
             # Add explanation to final explanation
             explanations_list.append('-------------------------------------------------NEW EXPLANATION-----------------------------------------------')
             explanations_list.append(exp_string)
+            explanations_list_similarity.append(exp_string)
 
             # Get the sentence to prove as a string
             sentence_string = common.get_string_from_file(sentence_to_prove_file)
@@ -101,6 +104,8 @@ if __name__ == "__main__":
 
                 # Forget the signature
                 common.forget_copy_result(input_ontology, method, signature)
+
+        print("The value of the similarity is:" + str(common.get_list_similarity(explanations_list_similarity)))
 
         total_explanations_list = total_explanations_list + explanations_list
 
