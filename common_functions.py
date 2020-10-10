@@ -1,7 +1,10 @@
 import os
-import shutil
 import random
+import shutil
+
 import owlready2 as ow
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 def get_string_from_file(explanation_file):
@@ -183,3 +186,28 @@ def select_signature(ontology, explanation, sentence, heuristic):
     signature = heuristics[heuristic](ontology, explanation, sentence)
 
     return signature
+
+
+def get_list_similarity(strings_list):
+    """
+    The function return the average of the the cosine similarity between the first element and the others
+    Higher is the number returned higher is the similarity between each element of the list.
+    The highest returned number is 1, the lowest 0
+    :param strings_list: list of element to compare
+    :return: Similarity between strings number between 0 and 1
+    """
+
+    # Object to convert a list of documents in a matrix of token counts
+    co_vec = CountVectorizer()
+    # Learn a vocabulary dictionary of all tokens in the raw documents.
+    # Transform documents to document-term matrix.
+    strings_matrix = co_vec.fit_transform(strings_list)
+    # Transform the matrix in array
+    strings_matrix = strings_matrix.toarray()
+    # Calculate the cosine similarity between each vector in the list
+    c_sim = cosine_similarity(strings_matrix)
+
+    return sum(c_sim[0])/len(c_sim)
+
+
+
