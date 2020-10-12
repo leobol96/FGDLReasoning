@@ -19,6 +19,7 @@ if __name__ == "__main__":
 
     for sub_class in sub_classes_list:
         explanation_dir = 'datasets/exp-1.omn'
+        explanations_list_similarity = []
         explanations_list = []
         url_to_remove = []
 
@@ -44,6 +45,7 @@ if __name__ == "__main__":
 
         explanations_list.append('-------------------------------------------------REMOVE BULK-----------------------------------------------')
         explanations_list.append(exp_string)
+        explanations_list_similarity.append(exp_string)
 
         # Get the classes and the properties from the ontology
         classes_properties = common.get_classes_properties(input_ontology, False)
@@ -84,6 +86,7 @@ if __name__ == "__main__":
             # Add explanation to final explanation
             explanations_list.append('-------------------------------------------------NEW EXPLANATION-----------------------------------------------')
             explanations_list.append(exp_string)
+            explanations_list_similarity.append(exp_string)
 
             # select the class to remove
             signature_to_forget = hf.select_signature(sentence_to_prove_file, explanation_dir, input_ontology, heuristic)
@@ -99,6 +102,7 @@ if __name__ == "__main__":
                 # Forget the signature
                 common.forget_copy_result(input_ontology, method, signature_file_dir)
 
+        explanations_list.append('\n########### SIMILARITY ##############')
         total_explanations_list = total_explanations_list + explanations_list
 
     try:

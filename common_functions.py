@@ -1,6 +1,13 @@
 import os
 import shutil
+import random
+import shutil
+
+import matplotlib.pyplot as plt
+import numpy as np
 import owlready2 as ow
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 def get_string_from_file(explanation_file):
@@ -126,6 +133,24 @@ def get_element(explanation):
     return to_return[1:]
 
 
+def get_number_occurences(explanation):
+    to_return = 0
+    string = ''
+    open = False
+    for char in explanation:
+
+        if char == '<':
+            string = ''
+            open = True
+        elif char == '>':
+            to_return += 1
+            open = False
+        elif open:
+            string += char
+
+    return to_return
+
+
 def write_result(result_list):
     """
     This Function write the results in FG_EXPLANATIONS.txt file
@@ -146,3 +171,77 @@ def check_error_proof(to_proof, error_file):
     if to_proof in error_proofs:
         return True
     return False
+
+    # Get the classes and the properties from the ontology
+    classes = get_classes(ontology, True)
+    props = get_properties(ontology, True)
+    classes_properties = classes + props
+
+    signature = heuristics[heuristic](ontology, explanation, sentence)
+
+    return signature
+
+
+def get_list_similarity(strings_list):
+    """
+    The function return the average of the the cosine similarity between the first element and the others
+    Higher is the number returned higher is the difference between each explanation of the list.
+    The highest returned number is 1, the lowest 0
+    :param strings_list:
+    :return:
+        Average of difference for each step, list with the differences for each step, list of deleted char for each step
+
+    """
+
+    # Object to convert a list of documents in a matrix of token counts
+    co_vec = CountVectorizer()
+    # List containing a value that represent the similarity between each step
+    change_by_step = []
+    # List of number of word deleted for each step
+    deleted_chars_by_step = []
+
+    for idx_element in range(0, len(strings_list) - 1):
+        string_to_compare = [strings_list[idx_element], strings_list[idx_element + 1]]
+        deleted_chars_by_step.append(len(strings_list[idx_element]) - len(strings_list[idx_element + 1]))
+        # Learn a vocabulary dictionary of all tokens in the raw documents.
+        # Transform documents to document-term matrix.
+        strings_matrix = co_vec.fit_transform(string_to_compare)
+        # Transform the matrix in array
+        strings_matrix = strings_matrix.toarray()
+        # Calculate the cosine similarity between each vector in the list
+        c_sim = cosine_similarity(strings_matrix)
+        # Calculate the difference between the value first explanation and the second
+        n_line = strings_list[idx_element + 1].count('\n')
+        change_by_step.append((c_sim[0][0] - c_sim[0][1]))
+
+    return sum(change_by_step) / len(strings_list), change_by_step, deleted_chars_by_step
+
+
+def plot_graphs(feature_01_list, feature_02_list, figure_name):
+    """
+    The fuction print and save two graphs with feature 01 and feature 02, the x axis is the step number
+    :param feature_01_list: list of list of feature
+    :param feature_02_list: list of list of feature
+    :param figure_name: Name used to save the figure
+    """
+    step = np.arange(0, len(feature_01_list[0]), 1)
+    exp = np.arange(0, len(feature_02_list[0]), 1)
+
+    fig, ax = plt.subplots(2, 1)
+    # plot the chars for each heuristics
+    for feature in feature_01_list:
+        ax[0].plot(step, feature)
+    # plot the step for each heuristics
+    for feature in feature_02_list:
+        ax[1].plot(exp, feature)
+
+    ax[0].set(xlabel='steps',
+              ylabel='chars deleted',
+              title='Deleted chars per step')
+
+    ax[1].set(xlabel='steps',
+              ylabel='difficulty of the step',
+              title='Step understandability')
+
+    fig.savefig("img/figure_" + figure_name + ".png")
+    plt.show()
