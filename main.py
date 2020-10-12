@@ -8,12 +8,12 @@ if __name__ == "__main__":
     input_ontology = 'datasets/pizza.owl'
     inputSubclassStatements = "datasets/subClasses.nt"
     signature = 'datasets/signature.txt'
-    method = '1'
+    method = '3'
     total_explanations_list = []
     heuristic = 'random'
 
     # Save sub_classes in subClasses.nt
-    # sub_classes_list = common.save_subclasses(input_ontology, 1)
+    #sub_classes_list = common.save_subclasses(input_ontology, 1)
     sub_classes_list = common.read_sublasses()
 
     # Every sublass
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
         # Remove all of the filtered items
         common.write_signature_to_remove(url_to_remove, signature)
-        common.forget_copy_result(input_ontology, method, signature)
+        common.forget_copy_result(input_ontology, '1', signature)
         # THIS CHANGES THE ONTOLOGY, WHEN RECALCULATING CLASSES IT CREATES NANS
         # THE FORGET FUNCTION FORGETS TOO MUCH OR ERRORS
 
@@ -103,11 +103,9 @@ if __name__ == "__main__":
                 common.write_signature_to_remove(url_to_remove, signature)
 
                 # Forget the signature
-                common.forget_copy_result(input_ontology, method, signature)
+                common.forget_copy_result(input_ontology, '3', signature)
 
-        print("The value of the similarity is:" + str(common.get_list_similarity(explanations_list_similarity)))
         explanations_list.append('\n########### SIMILARITY ##############')
-        explanations_list.append(str(common.get_list_similarity(explanations_list_similarity)) + '\n')
         total_explanations_list = total_explanations_list + explanations_list
 
     try:
