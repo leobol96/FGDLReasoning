@@ -37,13 +37,13 @@ if __name__ == "__main__":
     # os.system('java -jar kr_functions.jar ' + 'saveAllSubClasses' + " " + inputOntology)
 
     # 3. PRINT ALL EXPLANATIONS (inputOntology, inputSubclassStatements): print explanations for each subClass
-    # statement in the inputSubclassStatements --> uncomment the following line to run this function os.system('java
-    # -jar kr_functions.jar ' + 'printAllExplanations' + " " + inputOntology + " " + inputSubclassStatements)
+    # statement in the inputSubclassStatements --> uncomment the following line to run this function
+    # os.system('java -jar kr_functions.jar ' + 'printAllExplanations' + " " + inputOntology + " " + inputSubclassStatements)
 
     # 4. SAVE ALL EXPLANATIONS (inputOntology, inputSubclassStatements): save explanations for each subClass
     # statement in the inputSubclassStatements to file datasets/exp-#.owl --> uncomment the following line to run
-    # this function os.system('java -jar kr_functions.jar ' + 'saveAllExplanations' + " " + inputOntology + " " +
-    # inputSubclassStatements)
+    # this function
+    # os.system('java -jar kr_functions.jar ' + 'saveAllExplanations' + " " + inputOntology + " " + inputSubclassStatements)
 
     # For running LETHE forget command: --> uncomment the following line to run this function os.system('java -cp
     # lethe-standalone.jar uk.ac.man.cs.lethe.internal.application.ForgettingConsoleApplication --owlFile ' +

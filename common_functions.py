@@ -1,6 +1,5 @@
 import os
 import shutil
-import random
 import owlready2 as ow
 
 
@@ -23,7 +22,7 @@ def write_signature_to_remove(signature_list, signature_file_name):
                 sig_file.write(signature + '\n')
 
 
-def get_classes(ontology, reload):
+def get_classes_properties(ontology, reload):
     """
     This function returns the classes of an ontology
     :param ontology: Ontology to analyze
@@ -32,20 +31,21 @@ def get_classes(ontology, reload):
     onto = ow.get_ontology(ontology)
     onto.load(reload=reload)
     classes = list(onto.classes())
-    return classes
+    properties = list(onto.object_properties())
+    return classes + properties
 
 
-def get_properties(ontology, reload):
-    """
-    This function returns the properties of an ontology
-    :param ontology:
-    :return:
-    """
-    onto = ow.get_ontology(ontology)
-    onto.load(reload=reload)
-    properties = list(onto.properties())
-
-    return properties
+# def get_properties(ontology, reload):
+#     """
+#     This function returns the properties of an ontology
+#     :param ontology:
+#     :return:
+#     """
+#     onto = ow.get_ontology(ontology)
+#     onto.load(reload=reload)
+#     properties = list(onto.object_properties())
+#
+#     return properties
 
 
 def get_rules(ontology, reload):
@@ -136,50 +136,13 @@ def write_result(result_list):
             file.write(element)
             file.write('\n')
 
-def signature_random(ontology, _, sentence_string):
-    # Get the classes and the properties from the ontology
-    classes = get_classes(ontology, True)
-    props = get_properties(ontology, True)
-    classes_properties = classes + props
-
-    # Filter out all of the items that are not in the explanation
-    not_in_sentence = []
-    for cla_pro in classes_properties:
-        if '<' + cla_pro.iri + '>' not in sentence_string:
-            not_in_sentence.append(cla_pro.iri)
-    # When there are no items to forget
-    if not not_in_sentence:
-        return False
-    return random.choice(not_in_sentence)
-
-def signature_max(ontology, explanation, sentence_string):
-    # Get the classes and the properties from the ontology
-    classes = get_classes(ontology, True)
-    props = get_properties(ontology, True)
-    classes_properties = classes + props
-
-    count_dict = {}
-    for cla_pro in classes_properties:
-        if '<' + cla_pro.iri + '>' not in sentence_string:
-            count_dict[cla_pro] = explanation.count('<' + cla_pro.iri + '>' )
-    # When there are no items to forget
-    if not count_dict.keys():
-        return False
-    max_key = max(count_dict, key=count_dict.get)
-    return max_key.iri
-
-
-def select_signature(ontology, explanation, sentence, heuristic):
-    heuristics = {
-        'random': signature_random,
-        'max': signature_max
-    }
-
-    # Get the classes and the properties from the ontology
-    classes = get_classes(ontology, True)
-    props = get_properties(ontology, True)
-    classes_properties = classes + props
-
-    signature = heuristics[heuristic](ontology, explanation, sentence)
-
-    return signature
+def check_error_proof(to_proof, error_file):
+    """
+    :param to_proof: thing we want to proof
+    :return: true if the proof is known to give an error false otherwise
+    """
+    error_file = open(error_file, 'r')
+    error_proofs = error_file.readlines()
+    if to_proof in error_proofs:
+        return True
+    return False

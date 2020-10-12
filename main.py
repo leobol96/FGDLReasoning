@@ -1,30 +1,32 @@
 import os
 import common_functions as common
+import heuristic_functions as hf
 
-from os import listdir
 
 if __name__ == "__main__":
 
     input_ontology = 'datasets/pizza.owl'
     inputSubclassStatements = "datasets/subClasses.nt"
-    signature = 'datasets/signature.txt'
+    signature_file_dir = 'datasets/signature.txt'
     method = '1'
     total_explanations_list = []
-    heuristic = 'random'
+    heuristic = 'combined_max'
+    error_file = "datasets/error.txt"
 
     # Save sub_classes in subClasses.nt
-    # sub_classes_list = common.save_subclasses(input_ontology, 1)
-    sub_classes_list = common.read_sublasses()
+    sub_classes_list = common.save_subclasses(input_ontology, 1)
+    # sub_classes_list = common.read_sublasses()
 
-    # Every sublass
     for sub_class in sub_classes_list:
-
+        explanation_dir = 'datasets/exp-1.omn'
         explanations_list = []
-        input_ontology = 'datasets/pizza.owl'
         url_to_remove = []
-        explanation = 'datasets/exp-1.omn'
 
-        # Save the sentence we want to proof in a file
+        if common.check_error_proof(sub_class, error_file):
+            print('This one not good')
+            continue
+
+        # Save the sentence we want to prove in a file
         sentence_to_prove_file = 'datasets/sentence_to_prove.nt'
         with open(sentence_to_prove_file, 'w') as sentence_to_prove:
             sentence_to_prove.write(sub_class)
@@ -34,21 +36,17 @@ if __name__ == "__main__":
         explanations_list.append(sub_class)
         explanations_list.append('-------------------------------------------------DL REASONING-----------------------------------------------')
 
-
-        # Get the explanation from ontologt and save it in exp-#.omn
+        # Get the explanation from ontology and save it in exp-#.omn
         common.save_explanations(input_ontology, sentence_to_prove_file)
 
         # Get the explanation as string
-        exp_string = common.get_string_from_file(explanation)
+        exp_string = common.get_string_from_file(explanation_dir)
 
-        if exp_string not in explanations_list:
-            explanations_list.append('-------------------------------------------------REMOVE BULK-----------------------------------------------')
-            explanations_list.append(exp_string)
+        explanations_list.append('-------------------------------------------------REMOVE BULK-----------------------------------------------')
+        explanations_list.append(exp_string)
 
         # Get the classes and the properties from the ontology
-        classes = common.get_classes(input_ontology, False)
-        props = common.get_properties(input_ontology, False)
-        classes_properties = classes + props
+        classes_properties = common.get_classes_properties(input_ontology, False)
 
         # Filter out all of the items that are not in the explanation
         for cla_pro in classes_properties:
@@ -56,8 +54,8 @@ if __name__ == "__main__":
                 url_to_remove.append(cla_pro.iri)
 
         # Remove all of the filtered items
-        common.write_signature_to_remove(url_to_remove, signature)
-        common.forget_copy_result(input_ontology, method, signature)
+        common.write_signature_to_remove(url_to_remove, signature_file_dir)
+        common.forget_copy_result(input_ontology, method, signature_file_dir)
         # THIS CHANGES THE ONTOLOGY, WHEN RECALCULATING CLASSES IT CREATES NANS
         # THE FORGET FUNCTION FORGETS TOO MUCH OR ERRORS
 
@@ -73,34 +71,33 @@ if __name__ == "__main__":
             common.save_explanations(input_ontology, sentence_to_prove_file)
 
             # Get the explanation as string
-            exp_string = common.get_string_from_file(explanation)
+            exp_string = common.get_string_from_file(explanation_dir)
 
             # Stop if the explanation contains 'Nothing'
             if 'Nothing' in exp_string:
-                print('SYSTEM ERROR')
+                print(' -------------- SYSTEM ERROR --------------')
+                print(sub_class)
+                with open(error_file, 'a') as file:
+                    file.write(sub_class)
                 break
 
             # Add explanation to final explanation
             explanations_list.append('-------------------------------------------------NEW EXPLANATION-----------------------------------------------')
             explanations_list.append(exp_string)
 
-            # Get the sentence to prove as a string
-            sentence_string = common.get_string_from_file(sentence_to_prove_file)
-
-            heuristic = 'max'
             # select the class to remove
-            signature_to_forget = common.select_signature(input_ontology, exp_string, sentence_string, heuristic)
+            signature_to_forget = hf.select_signature(sentence_to_prove_file, explanation_dir, input_ontology, heuristic)
             if signature_to_forget:
-                url_to_remove.append(signature_to_forget)
                 find = True
+                url_to_remove.append(signature_to_forget)
                 explanations_list.append('\n########### FORGETTING ##############')
                 explanations_list.append(signature_to_forget + '\n')
 
                 # Write the signature to the signature file
-                common.write_signature_to_remove(url_to_remove, signature)
+                common.write_signature_to_remove(url_to_remove, signature_file_dir)
 
                 # Forget the signature
-                common.forget_copy_result(input_ontology, method, signature)
+                common.forget_copy_result(input_ontology, method, signature_file_dir)
 
         total_explanations_list = total_explanations_list + explanations_list
 
