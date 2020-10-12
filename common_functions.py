@@ -243,5 +243,5 @@ def plot_graphs(feature_01_list, feature_02_list, figure_name):
               ylabel='difficulty of the step',
               title='Step understandability')
 
-    fig.savefig("img/figure_" + figure_name + ".png")
+    #fig.savefig("figure_" + figure_name + ".png")
     plt.show()

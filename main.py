@@ -13,14 +13,21 @@ if __name__ == "__main__":
     error_file = "datasets/error.txt"
 
     # Save sub_classes in subClasses.nt
-    sub_classes_list = common.save_subclasses(input_ontology, 1)
-    # sub_classes_list = common.read_sublasses()
+    #sub_classes_list = common.save_subclasses(input_ontology, 1)
+    sub_classes_list = common.read_sublasses()
 
     for sub_class in sub_classes_list:
         explanation_dir = 'datasets/exp-1.omn'
         explanations_list_similarity = []
         explanations_list = []
         url_to_remove = []
+
+        average_similarity = 0
+        deleted_chars_by_step = []
+        change_by_step = []
+        deleted_chars_by_step_list = []
+        change_by_step_list = []
+
 
         if common.check_error_proof(sub_class, error_file):
             print('This one not good')
@@ -59,7 +66,7 @@ if __name__ == "__main__":
 
         # Remove all of the filtered items
         common.write_signature_to_remove(url_to_remove, signature_file_dir)
-        common.forget_copy_result(input_ontology, method, signature_file_dir)
+        common.forget_copy_result(input_ontology, '1', signature_file_dir)
         # THIS CHANGES THE ONTOLOGY, WHEN RECALCULATING CLASSES IT CREATES NANS
         # THE FORGET FUNCTION FORGETS TOO MUCH OR ERRORS
 
@@ -104,9 +111,15 @@ if __name__ == "__main__":
                 common.write_signature_to_remove(url_to_remove, signature_file_dir)
 
                 # Forget the signature
-                common.forget_copy_result(input_ontology, method, signature_file_dir)
+                common.forget_copy_result(input_ontology, '3', signature_file_dir)
 
         explanations_list.append('\n########### SIMILARITY ##############')
+
+        average_similarity, change_by_step, deleted_chars_by_step = common.get_list_similarity(explanations_list_similarity)
+        change_by_step_list.append(change_by_step)
+        deleted_chars_by_step_list.append(deleted_chars_by_step)
+
+        common.plot_graphs(deleted_chars_by_step_list, change_by_step_list, 'plot')
         total_explanations_list = total_explanations_list + explanations_list
 
     try:

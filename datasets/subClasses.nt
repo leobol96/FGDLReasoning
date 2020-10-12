@@ -1,1 +1,1 @@
-<http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping> <http://www.w3.org/2000/01/rdf-schema#subClassOf>  <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept> .
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Veneziana> rdfs:subClassOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizzaEquivalent1> .
