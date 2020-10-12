@@ -2,7 +2,6 @@ import os
 import common_functions as common
 import heuristic_functions as hf
 
-
 if __name__ == "__main__":
 
     input_ontology = 'datasets/pizza.owl'
@@ -33,9 +32,11 @@ if __name__ == "__main__":
             sentence_to_prove.write(sub_class)
 
         # Add sentence to proof to the full explanation
-        explanations_list.append('-----------------------------------------SENTENCE TO PROVE--------------------------------------------------')
+        explanations_list.append(
+            '-----------------------------------------SENTENCE TO PROVE--------------------------------------------------')
         explanations_list.append(sub_class)
-        explanations_list.append('-------------------------------------------------DL REASONING-----------------------------------------------')
+        explanations_list.append(
+            '-------------------------------------------------DL REASONING-----------------------------------------------')
 
         # Get the explanation from ontology and save it in exp-#.omn
         common.save_explanations(input_ontology, sentence_to_prove_file)
@@ -43,7 +44,8 @@ if __name__ == "__main__":
         # Get the explanation as string
         exp_string = common.get_string_from_file(explanation_dir)
 
-        explanations_list.append('-------------------------------------------------REMOVE BULK-----------------------------------------------')
+        explanations_list.append(
+            '-------------------------------------------------REMOVE BULK-----------------------------------------------')
         explanations_list.append(exp_string)
         explanations_list_similarity.append(exp_string)
 
@@ -84,12 +86,14 @@ if __name__ == "__main__":
                 break
 
             # Add explanation to final explanation
-            explanations_list.append('-------------------------------------------------NEW EXPLANATION-----------------------------------------------')
+            explanations_list.append(
+                '-------------------------------------------------NEW EXPLANATION-----------------------------------------------')
             explanations_list.append(exp_string)
             explanations_list_similarity.append(exp_string)
 
             # select the class to remove
-            signature_to_forget = hf.select_signature(sentence_to_prove_file, explanation_dir, input_ontology, heuristic)
+            signature_to_forget = hf.select_signature(sentence_to_prove_file, explanation_dir, input_ontology,
+                                                      heuristic)
             if signature_to_forget:
                 find = True
                 url_to_remove.append(signature_to_forget)

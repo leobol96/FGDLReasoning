@@ -2,6 +2,7 @@ import re
 import random
 import common_functions as common
 
+
 def select_signature(prove_file_dir, explanation_dir, input_ontology, heuristic):
     if heuristic == 'min':
         signature = signature_min(input_ontology, prove_file_dir, explanation_dir)
@@ -13,6 +14,7 @@ def select_signature(prove_file_dir, explanation_dir, input_ontology, heuristic)
         signature = signature_random(input_ontology, prove_file_dir)
 
     return signature
+
 
 def signature_random(ontology, prove_file_dir):
     # Get the sentence to prove as a string
@@ -31,6 +33,7 @@ def signature_random(ontology, prove_file_dir):
         return False
     return random.choice(not_in_sentence)
 
+
 def signature_max(ontology, prove_file_dir, explanation_dir):
     # Get the sentence to prove as a string
     sentence_string = common.get_string_from_file(prove_file_dir)
@@ -44,12 +47,13 @@ def signature_max(ontology, prove_file_dir, explanation_dir):
     count_dict = {}
     for cla_pro in classes_properties:
         if '<' + cla_pro.iri + '>' not in sentence_string:
-            count_dict[cla_pro] = explanation.count('<' + cla_pro.iri + '>' )
+            count_dict[cla_pro] = explanation.count('<' + cla_pro.iri + '>')
     # When there are no items to forget
     if not count_dict.keys():
         return False
     max_key = max(count_dict, key=count_dict.get)
     return max_key.iri
+
 
 def signature_min(ontology, prove_file_dir, explanation_dir):
     # Get the sentence to prove as a string
@@ -64,12 +68,13 @@ def signature_min(ontology, prove_file_dir, explanation_dir):
     count_dict = {}
     for cla_pro in classes_properties:
         if '<' + cla_pro.iri + '>' not in sentence_string:
-            count_dict[cla_pro] = explanation.count('<' + cla_pro.iri + '>' )
+            count_dict[cla_pro] = explanation.count('<' + cla_pro.iri + '>')
     # When there are no items to forget
     if not count_dict.keys():
         return False
     min_key = min(count_dict, key=count_dict.get)
     return min_key.iri
+
 
 def signature_combined_max(prove_file_dir, explanation_dir):
     prove_list = prove_to_list(prove_file_dir)
@@ -94,6 +99,7 @@ def signature_combined_max(prove_file_dir, explanation_dir):
 
     return maximas
 
+
 def prove_to_list(prove_file_dir):
     """ This function reads the file with the axiom we have to proof and converts it to a list with just the classes (as iri)
     :param proof_file_dir: location of the file with the axiom that we have to prove
@@ -108,7 +114,8 @@ def prove_to_list(prove_file_dir):
     prove.close()
 
     # return first and last element from list (which are the classes, the middle one is the relation type)
-    return prove_list[::len(prove_list)-1]
+    return prove_list[::len(prove_list) - 1]
+
 
 def explanation_to_list(explanation_dir):
     # Read the file
