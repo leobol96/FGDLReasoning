@@ -1,1 +1,4 @@
 <http://www.co-ode.org/ontologies/pizza/pizza.owl#Veneziana> rdfs:subClassOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizzaEquivalent1> .
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#FourSeasons> rdfs:subClassOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept> .
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#LaReine> rdfs:subClassOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept> .
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Soho> rdfs:subClassOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> .
