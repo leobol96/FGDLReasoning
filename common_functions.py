@@ -217,31 +217,31 @@ def get_list_similarity(strings_list):
     return sum(change_by_step) / len(strings_list), change_by_step, deleted_chars_by_step
 
 
-def plot_graphs(feature_01_list, feature_02_list, figure_name):
+def plot_graphs(feature_01_list, feature_02_list, figure_name, heuristic_list):
     """
     The fuction print and save two graphs with feature 01 and feature 02, the x axis is the step number
     :param feature_01_list: list of list of feature
     :param feature_02_list: list of list of feature
     :param figure_name: Name used to save the figure
     """
-    step = np.arange(0, len(feature_01_list[0]), 1)
-    exp = np.arange(0, len(feature_02_list[0]), 1)
 
     fig, ax = plt.subplots(2, 1)
     # plot the chars for each heuristics
-    for feature in feature_01_list:
-        ax[0].plot(step, feature)
+    for idx, feature in enumerate(feature_01_list):
+        ax[0].plot(np.arange(0, len(feature), 1), feature, label=heuristic_list[idx])
     # plot the step for each heuristics
-    for feature in feature_02_list:
-        ax[1].plot(exp, feature)
+    for idx, feature in enumerate(feature_02_list):
+        ax[1].plot(np.arange(0, len(feature), 1), feature, label=heuristic_list[idx])
 
     ax[0].set(xlabel='steps',
               ylabel='chars deleted',
               title='Deleted chars per step')
+    ax[0].legend()
 
     ax[1].set(xlabel='steps',
               ylabel='difficulty of the step',
               title='Step understandability')
+    ax[1].legend()
 
     #fig.savefig("figure_" + figure_name + ".png")
     plt.show()
