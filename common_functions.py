@@ -1,7 +1,5 @@
 import os
 import shutil
-import random
-import shutil
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,6 +9,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 def get_string_from_file(explanation_file):
+    """
+    The function returns a file as a string
+    :param explanation_file: File to read
+    :return: String that represents the file read
+    """
     to_return = ''
 
     with open(explanation_file, 'r') as exp:
@@ -21,6 +24,11 @@ def get_string_from_file(explanation_file):
 
 
 def write_signature_to_remove(signature_list, signature_file_name):
+    """
+    The function writes a list of signatures in a file. This file will be used to delete the signatures from the ontology
+    :param signature_list: Signature or list of signatures to write in the file.
+    :param signature_file_name: Name of the file where write the signatures
+    """
     with open(signature_file_name, 'w') as sig_file:
         for idx, signature in enumerate(signature_list):
             if len(signature_list) == idx + 1:
@@ -31,9 +39,9 @@ def write_signature_to_remove(signature_list, signature_file_name):
 
 def get_classes_properties(ontology, reload):
     """
-    This function returns the classes of an ontology
+    This function returns the classes and the properties in a ontology
     :param ontology: Ontology to analyze
-    :return: List of classes
+    :return: List of classes and properties
     """
     onto = ow.get_ontology(ontology)
     onto.load(reload=reload)
@@ -42,33 +50,14 @@ def get_classes_properties(ontology, reload):
     return classes + properties
 
 
-# def get_properties(ontology, reload):
-#     """
-#     This function returns the properties of an ontology
-#     :param ontology:
-#     :return:
-#     """
-#     onto = ow.get_ontology(ontology)
-#     onto.load(reload=reload)
-#     properties = list(onto.object_properties())
-#
-#     return properties
-
-
-def get_rules(ontology, reload):
-    """
-    This function returns the rules of an ontology
-    :param ontology:
-    :return:
-    """
-    onto = ow.get_ontology(ontology)
-    onto.load(reload=reload)
-    rules = list(onto.rules())
-
-    return rules
-
-
 def save_subclasses(input_ontology, n_line):
+    """
+    The function saves N subclasses relationship from a specific ontology.
+    The subclasses will be saved in the file subClasses.nt
+    :param input_ontology: Ontology to analyze.
+    :param n_line: Number of relationship that one wants to save.
+    :return: List of relationships saved in the file.
+    """
     os.system('java -jar kr_functions.jar ' + 'saveAllSubClasses' + " " + input_ontology)
     to_keep = []
 
@@ -86,6 +75,10 @@ def save_subclasses(input_ontology, n_line):
 
 
 def read_sublasses():
+    """
+    This function reads the subclasses in the file subClasses.nt
+    :return: A list of subclasses present in the file.
+    """
     to_return = []
     with open('datasets/subClasses.nt', 'r') as sublasses:
         for line in sublasses:
@@ -96,6 +89,8 @@ def read_sublasses():
 
 def save_explanations(ontology, sub_sentence):
     """
+    The functions save a set of explanations. The explanations are for each relationship present in sub_sentence file
+    using the ontology passed as parameter.
     :param ontology: Ontology where check for the explanations
     :param sub_sentence: Sub sequence for which you want to find the explanation
     """
@@ -104,8 +99,8 @@ def save_explanations(ontology, sub_sentence):
 
 def forget_copy_result(ontology, method, signature_file):
     """
-    This function allow to forget some classes from an ontology. Moreover, it copys the result to the dataset folder.
-    We did this because the saveAllExplanatins method hase problem with the result.owl if it isn't in the dataset folder.
+    This function allow to forget some classes and properties from an ontology. Moreover, it copies the result to the dataset folder.
+    The copy of the file has been done because the saveAllExplanatins method hase problem with the result.owl if it isn't in the dataset folder.
     :param ontology: Ontology where aply the forget method
     :param method: Method used from the Forgetter
     :param signature_file: File withe the signatures to delete in the ontology
@@ -115,45 +110,9 @@ def forget_copy_result(ontology, method, signature_file):
     shutil.copy(os.path.abspath(os.getcwd()) + '/result.owl', os.path.abspath(os.getcwd()) + '/datasets')
 
 
-def get_element(explanation):
-    to_return = []
-    string = ''
-    open = False
-    for char in explanation:
-
-        if char == '<':
-            string = ''
-            open = True
-        elif char == '>':
-            if string not in to_return: to_return.append(string)
-            open = False
-        elif open:
-            string += char
-
-    return to_return[1:]
-
-
-def get_number_occurences(explanation):
-    to_return = 0
-    string = ''
-    open = False
-    for char in explanation:
-
-        if char == '<':
-            string = ''
-            open = True
-        elif char == '>':
-            to_return += 1
-            open = False
-        elif open:
-            string += char
-
-    return to_return
-
-
 def write_result(result_list):
     """
-    This Function write the results in FG_EXPLANATIONS.txt file
+    This Function write the results of the forgetting reasoning in FG_EXPLANATIONS.txt file
     :param result_list: List of explanations
     """
     with open('FG_EXPLANATIONS.txt', 'w') as file:
@@ -161,8 +120,10 @@ def write_result(result_list):
             file.write(element)
             file.write('\n')
 
+
 def check_error_proof(to_proof, error_file):
     """
+    The function checks if there are present any errors in the proof
     :param to_proof: thing we want to proof
     :return: true if the proof is known to give an error false otherwise
     """
@@ -186,8 +147,9 @@ def get_list_similarity(strings_list):
     """
     The function return the average of the the cosine similarity between the first element and the others
     Higher is the number returned higher is the difference between each explanation of the list.
-    The highest returned number is 1, the lowest 0
-    :param strings_list:
+    The highest returned number is 1, the lowest 0. Moreover it returns the value of cosine similarity for each step
+    and the number of chars deleted for each step.
+    :param List of explanations
     :return:
         Average of difference for each step, list with the differences for each step, list of deleted char for each step
 
@@ -243,5 +205,5 @@ def plot_graphs(feature_01_list, feature_02_list, figure_name, heuristic_list):
               title='Step understandability')
     ax[1].legend()
 
-    #fig.savefig("figure_" + figure_name + ".png")
+    fig.savefig("figure_sub_" + figure_name + ".png")
     plt.show()

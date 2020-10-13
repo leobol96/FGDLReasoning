@@ -4,6 +4,14 @@ import common_functions as common
 
 
 def select_signature(prove_file_dir, explanation_dir, input_ontology, heuristic):
+    """
+    The function returns the signature using the heuristic passed as parameter
+    :param prove_file_dir: File with the subclasses to prove
+    :param explanation_dir: File with the explanation
+    :param input_ontology: Ontology to analyze
+    :param heuristic: Heuristic to choose
+    :return: Signature chosen from the heuristic
+    """
     if heuristic == 'min':
         signature = signature_min(input_ontology, prove_file_dir, explanation_dir)
     elif heuristic == 'max':
@@ -17,6 +25,12 @@ def select_signature(prove_file_dir, explanation_dir, input_ontology, heuristic)
 
 
 def signature_random(ontology, prove_file_dir):
+    """
+    The function represent the random heuristic, that take one random signature from the explanation
+    :param ontology: Ontology to analyze
+    :param prove_file_dir: Subclass to prove
+    :return: Signature chosen
+    """
     # Get the sentence to prove as a string
     sentence_string = common.get_string_from_file(prove_file_dir)
 
@@ -35,6 +49,13 @@ def signature_random(ontology, prove_file_dir):
 
 
 def signature_max(ontology, prove_file_dir, explanation_dir):
+    """
+    This function returns the signature with the maximum number of occurences
+    :param ontology: Ontology to analyze
+    :param prove_file_dir: Subclass to prove
+    :param explanation_dir: Explanation to analyze
+    :return: Signature chosen
+    """
     # Get the sentence to prove as a string
     sentence_string = common.get_string_from_file(prove_file_dir)
 
@@ -56,6 +77,13 @@ def signature_max(ontology, prove_file_dir, explanation_dir):
 
 
 def signature_min(ontology, prove_file_dir, explanation_dir):
+    """
+    This function returns the signature with the minimum number of occurrences
+    :param ontology: Ontology to analyze
+    :param prove_file_dir: Subclass to prove
+    :param explanation_dir: Explanation to analyze
+    :return: Signature chosen
+    """
     # Get the sentence to prove as a string
     sentence_string = common.get_string_from_file(prove_file_dir)
 
@@ -101,7 +129,8 @@ def signature_combined_max(prove_file_dir, explanation_dir):
 
 
 def prove_to_list(prove_file_dir):
-    """ This function reads the file with the axiom we have to proof and converts it to a list with just the classes (as iri)
+    """
+    This function reads the file with the axiom we have to proof and converts it to a list with just the classes (as iri)
     :param proof_file_dir: location of the file with the axiom that we have to prove
     :return:
     """
@@ -118,6 +147,11 @@ def prove_to_list(prove_file_dir):
 
 
 def explanation_to_list(explanation_dir):
+    """
+    This function returns a list with all the element in the explanation file passed as parameters
+    :param explanation_dir: File with the explanation
+    :return: List of element
+    """
     # Read the file
     explanation = open(explanation_dir)
     temp_explanation = [line for line in explanation]

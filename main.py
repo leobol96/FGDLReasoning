@@ -9,14 +9,14 @@ if __name__ == "__main__":
     signature_file_dir = 'datasets/signature.txt'
     method = '1'
     total_explanations_list = []
-    heuristic_list = ['min', 'max', 'combined_max']
+    heuristic_list = ['min', 'max', 'combined_max', 'rnd']
     error_file = "datasets/error.txt"
 
     # Save sub_classes in subClasses.nt
-    #sub_classes_list = common.save_subclasses(input_ontology, 1)
+    # sub_classes_list = common.save_subclasses(input_ontology, 1)
     sub_classes_list = common.read_sublasses()
 
-    for sub_class in sub_classes_list:
+    for idx_sub, sub_class in enumerate(sub_classes_list):
         explanation_dir = 'datasets/exp-1.omn'
         deleted_chars_by_step_list = []
         change_by_step_list = []
@@ -117,12 +117,13 @@ if __name__ == "__main__":
 
             explanations_list.append('\n########### SIMILARITY ##############')
 
-            average_similarity, change_by_step, deleted_chars_by_step = common.get_list_similarity(explanations_list_similarity)
+            average_similarity, change_by_step, deleted_chars_by_step = common.get_list_similarity(
+                explanations_list_similarity)
             change_by_step_list.append(change_by_step)
             deleted_chars_by_step_list.append(deleted_chars_by_step)
             total_explanations_list = total_explanations_list + explanations_list
 
-        common.plot_graphs(deleted_chars_by_step_list, change_by_step_list, 'plot', heuristic_list)
+        common.plot_graphs(deleted_chars_by_step_list, change_by_step_list, str(idx_sub + 1), heuristic_list)
 
     try:
         os.remove('result.owl')
