@@ -20,6 +20,7 @@ if __name__ == "__main__":
         explanation_dir = 'datasets/exp-1.omn'
         deleted_chars_by_step_list = []
         change_by_step_list = []
+        average_similarity_list = []
 
         for heuristic in heuristic_list:
             input_ontology = 'datasets/pizza.owl'
@@ -121,9 +122,13 @@ if __name__ == "__main__":
                 explanations_list_similarity)
             change_by_step_list.append(change_by_step)
             deleted_chars_by_step_list.append(deleted_chars_by_step)
+            average_similarity_list.append(average_similarity)
             total_explanations_list = total_explanations_list + explanations_list
 
         common.plot_graphs(deleted_chars_by_step_list, change_by_step_list, str(idx_sub + 1), heuristic_list)
+
+        for avg_sim in average_similarity_list:
+            print(average_similarity_list)
 
     try:
         os.remove('result.owl')
