@@ -176,7 +176,7 @@ def get_list_similarity(strings_list):
         n_line = strings_list[idx_element + 1].count('\n')
         change_by_step.append((c_sim[0][0] - c_sim[0][1]))
 
-    return sum(change_by_step) / len(strings_list), change_by_step, deleted_chars_by_step
+    return sum(change_by_step) / (len(strings_list) - 1), change_by_step, deleted_chars_by_step
 
 
 def plot_graphs(feature_01_list, feature_02_list, figure_name, heuristic_list):
