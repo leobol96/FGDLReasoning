@@ -34,10 +34,8 @@ So to run the code, please be sure to have all the dependencies installed on the
 
 After running the main.py the following plot will be printed :
 
-![structure](https://github.com/leobol96/FGDLReasoning/blob/master/img/FourSeasons_DomainConcept.png)
-![structure](https://github.com/leobol96/FGDLReasoning/blob/master/img/Siciliana_DomainConcept.png)
-![structure](https://github.com/leobol96/FGDLReasoning/blob/master/img/Soho_Food.png)
-![structure](https://github.com/leobol96/FGDLReasoning/blob/master/img/Veneziana_VegetarianPizzaEquivalent1.png)
+![structure](https://github.com/leobol96/FGDLReasoning/blob/master/img/FourSeasons_DomainConcept.png) ![structure](https://github.com/leobol96/FGDLReasoning/blob/master/img/Siciliana_DomainConcept.png)
+![structure](https://github.com/leobol96/FGDLReasoning/blob/master/img/Soho_Food.png) ![structure](https://github.com/leobol96/FGDLReasoning/blob/master/img/Veneziana_VegetarianPizzaEquivalent1.png)
 
 Moreover, you will be able to find all the justifications in the file FG_EXPLANATIONS.txt
 The follow is an example of justifications during the forgetting reasoning:
