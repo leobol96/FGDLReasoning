@@ -22,7 +22,6 @@ if __name__ == "__main__":
         deleted_chars_by_step_list = []
         change_by_step_list = []
 
-
         for heuristic in heuristic_list:
             input_ontology = 'datasets/pizza.owl'
             explanations_list_similarity = []
@@ -33,7 +32,7 @@ if __name__ == "__main__":
             deleted_chars_by_step = []
             change_by_step = []
 
-            #if common.check_error_proof(sub_class, error_file):
+            # if common.check_error_proof(sub_class, error_file):
             #    print('This one not good')
             #    continue
 
@@ -116,8 +115,6 @@ if __name__ == "__main__":
 
                     # Forget the signature
                     common.forget_copy_result(input_ontology, '3', signature_file_dir)
-
-            explanations_list.append('\n########### SIMILARITY ##############')
 
             average_similarity, change_by_step, deleted_chars_by_step = common.get_list_similarity(
                 explanations_list_similarity)
