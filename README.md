@@ -126,7 +126,7 @@ SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://
 
 ## Others
 
-As mentioned above, some times the jar files don't work properly, so if you get any errors, try to run the software another time.
+As mentioned above, some times the jar files don't work properly, so if you get any errors or the forgetting phase seems blocked, try to run the software another time.
 If errors persist, please contact me.
 
 
