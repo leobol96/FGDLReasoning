@@ -39,6 +39,9 @@ After running the main.py the following plot will be printed :
     <td><img src="https://github.com/leobol96/FGDLReasoning/blob/master/img/FourSeasons_DomainConcept.png" ></td>
     <td><img src="https://github.com/leobol96/FGDLReasoning/blob/master/img/Siciliana_DomainConcept.png" ></td>
   </tr>
+ </table>
+ 
+ <table>
     <tr>
     <td><img src="https://github.com/leobol96/FGDLReasoning/blob/master/img/Soho_Food.png" ></td>
     <td><img src="https://github.com/leobol96/FGDLReasoning/blob/master/img/Veneziana_VegetarianPizzaEquivalent1.png" ></td>
