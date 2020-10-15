@@ -28,6 +28,7 @@ The main program uses the following dependencies:
 - sklearn
 - re
 - random 
+
 So to run the code, please be sure to have all the dependencies installed on the pc.
 
 ## At the end of the execution
