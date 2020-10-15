@@ -51,7 +51,8 @@ After running the main.py the following plots will be printed and save in the ma
   </tr>
  </table>
 
-Moreover, you will be able to find all the justifications in the file FG_EXPLANATIONS.txt
+Moreover, you will be able to find all the justifications in the file **FG_EXPLANATIONS.txt**
+
 The following is an example of justifications during the forgetting reasoning:
 
 
