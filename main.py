@@ -15,12 +15,13 @@ if __name__ == "__main__":
     # Save sub_classes in subClasses.nt
     # sub_classes_list = common.save_subclasses(input_ontology, 1)
     sub_classes_list = common.read_sublasses()
+    average_similarity_list = []
 
     for idx_sub, sub_class in enumerate(sub_classes_list):
         explanation_dir = 'datasets/exp-1.omn'
         deleted_chars_by_step_list = []
         change_by_step_list = []
-        average_similarity_list = []
+
 
         for heuristic in heuristic_list:
             input_ontology = 'datasets/pizza.owl'
@@ -32,9 +33,9 @@ if __name__ == "__main__":
             deleted_chars_by_step = []
             change_by_step = []
 
-            if common.check_error_proof(sub_class, error_file):
-                print('This one not good')
-                continue
+            #if common.check_error_proof(sub_class, error_file):
+            #    print('This one not good')
+            #    continue
 
             # Save the sentence we want to prove in a file
             sentence_to_prove_file = 'datasets/sentence_to_prove.nt'
@@ -126,9 +127,10 @@ if __name__ == "__main__":
             total_explanations_list = total_explanations_list + explanations_list
 
         common.plot_graphs(deleted_chars_by_step_list, change_by_step_list, str(idx_sub + 1), heuristic_list)
+        print('Average similarity list:\n')
 
-        for avg_sim in average_similarity_list:
-            print(average_similarity_list)
+    for average in average_similarity_list:
+        print(average)
 
     try:
         os.remove('result.owl')
