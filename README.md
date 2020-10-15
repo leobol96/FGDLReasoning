@@ -1,18 +1,100 @@
-# kr_project2_explanation_by_forgetting
+# Forgetting Reasoning on Pizza Ontology
 
-This is a very repository for a very simple code-base for the course Knowledge Representation 2020 of the Master AI.
- 
-This repository provides a number of (partial) stand-alone versions of established programs (LETHE or the OWL-API) 
-with the sole goal of allowing you to programme and evaluate a forgetting-based explanation tool for Project 2 of the course. 
-Both those programs are provided as jars. 
+The project is built for using the Forgetting reasoning on the Pizza ontology. 
+Please read carefully this README file before using the program. If you don't have a markdown editor or if you don't see the images, please visit: https://github.com/leobol96/FGDLReasoning
 
-The most important file is myProgram.py, which illustrates four the usages of the kr_functions.jar file for loading and 
-classifying an ontology, and printing and writing the entailed subclass statements to a fail, and the application of
-lethe_standalone for forgetting vocabulary specified in a file signature.txt from an ontology. 
+## Structure
 
-You can run myPrograms.py with your Python installation and you need a Java installation (I believe a runtime version is sufficient). 
+The project is made up of three main files.
+- *main.py*: The main file contains the principal algorithm to simplify the ontology using the forgetting paradigm
+- *heuristic_function.py* The heuristic file contains the functions used to select the correct element to delete during the forgetting method
+- *common_function.py* The common contains all the general functions used to read, write, plot etc.
 
-If you want more functionality from the OWL-API you might want to modify kr_functions.jar. 
-We also provide the java directory that allows you to do this at the following GIT repository 
-https://github.com/raadjoe/kr_forgetting.git 
- believe you need a Java jdk version in that case. 
+## How to run the project
+
+The Reasoner is static and always analyzes the same subclasses relationship. This because sometimes the lethe.jar and the kr_functions.jar crash for unknown reasons.
+So, to run the code simply from command line:
+
+python main.py
+
+## Dependencies
+
+The main program uses the following dependencies:
+- os
+- shutil
+- matplotlib.pyplot 
+- numpy
+- owlready2 
+- sklearn
+- re
+- random 
+So to run the code, please be sure to have all the dependencies installed on the pc.
+
+## At the end of the execution
+
+After running the main.py the following plot will be printed :
+
+Moreover, you will be able to find all the justifications in the file FG_EXPLANATIONS.txt
+The follow is an example of justifications during the forgetting reasoning:
+
+########### SIMILARITY ##############
+-----------------------------------------SENTENCE TO PROVE--------------------------------------------------
+<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> rdfs:subClassOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept> .
+-------------------------------------------------DL REASONING-----------------------------------------------
+-------------------------------------------------REMOVE BULK-----------------------------------------------
+Ontology(<http://www.example.com/explanation1>
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza>)
+SubObjectPropertyOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#isBaseOf> <http://www.co-ode.org/ontologies/pizza/pizza.owl#isIngredientOf>)
+InverseObjectProperties(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasIngredient> <http://www.co-ode.org/ontologies/pizza/pizza.owl#isIngredientOf>)
+ObjectPropertyDomain(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasIngredient> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
+InverseObjectProperties(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#isBaseOf>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> ObjectSomeValuesFrom(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase>))
+)
+-------------------------------------------------NEW EXPLANATION-----------------------------------------------
+Ontology(<http://www.example.com/explanation1>
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza>)
+SubObjectPropertyOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#hasIngredient>)
+SubClassOf(ObjectSomeValuesFrom(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasIngredient> owl:Thing) <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> ObjectSomeValuesFrom(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase>))
+)
+
+########### FORGETTING ##############
+http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza
+
+-------------------------------------------------NEW EXPLANATION-----------------------------------------------
+Ontology(<http://www.example.com/explanation1>
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
+)
+
+########### FORGETTING ##############
+http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza
+
+-------------------------------------------------NEW EXPLANATION-----------------------------------------------
+Ontology(<http://www.example.com/explanation1>
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> ObjectSomeValuesFrom(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase>))
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
+SubClassOf(ObjectSomeValuesFrom(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> owl:Thing) <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food>)
+)
+
+########### FORGETTING ##############
+http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase
+
+-------------------------------------------------NEW EXPLANATION-----------------------------------------------
+Ontology(<http://www.example.com/explanation1>
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food>)
+)
+
+########### FORGETTING ##############
+http://www.co-ode.org/ontologies/pizza/pizza.owl#Food
+
+-------------------------------------------------NEW EXPLANATION-----------------------------------------------
+Ontology(<http://www.example.com/explanation1>
+SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
+)
