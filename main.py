@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
             # Add sentence to proof to the full explanation
             explanations_list.append(
-                '-----------------------------------------SENTENCE TO PROVE--------------------------------------------------')
+                '--------------------SENTENCE TO PROVE N: '+str(idx_sub+1)+' ---- HEURISTIC: '+heuristic+'------------------------')
             explanations_list.append(sub_class)
             explanations_list.append(
                 '-------------------------------------------------DL REASONING-----------------------------------------------')
