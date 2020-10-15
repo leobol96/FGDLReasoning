@@ -123,3 +123,12 @@ http://www.co-ode.org/ontologies/pizza/pizza.owl#Food
 Ontology(<http://www.example.com/explanation1>
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
 )
+
+## Others
+
+As mentioned above, some times the jar files don't work properly, so if you get any errors, try to run the software another time.
+If errors persist, please contact me.
+
+
+
+
