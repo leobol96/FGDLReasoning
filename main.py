@@ -124,8 +124,8 @@ if __name__ == "__main__":
             total_explanations_list = total_explanations_list + explanations_list
 
         common.plot_graphs(deleted_chars_by_step_list, change_by_step_list, str(idx_sub + 1), heuristic_list)
-        print('Average similarity list:\n')
 
+    print('Average similarity list:\n')
     for average in average_similarity_list:
         print(average)
 
