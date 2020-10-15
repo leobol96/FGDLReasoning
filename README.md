@@ -51,11 +51,15 @@ After running the main.py the following plot will be printed :
 Moreover, you will be able to find all the justifications in the file FG_EXPLANATIONS.txt
 The follow is an example of justifications during the forgetting reasoning:
 
-########### SIMILARITY ##############
+
 -----------------------------------------SENTENCE TO PROVE--------------------------------------------------
+
 <http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> rdfs:subClassOf <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept> .
+
 -------------------------------------------------DL REASONING-----------------------------------------------
+
 -------------------------------------------------REMOVE BULK-----------------------------------------------
+
 Ontology(<http://www.example.com/explanation1>
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza>)
 SubObjectPropertyOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#isBaseOf> <http://www.co-ode.org/ontologies/pizza/pizza.owl#isIngredientOf>)
@@ -66,7 +70,9 @@ SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.c
 InverseObjectProperties(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#isBaseOf>)
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> ObjectSomeValuesFrom(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase>))
 )
+
 -------------------------------------------------NEW EXPLANATION-----------------------------------------------
+
 Ontology(<http://www.example.com/explanation1>
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza>)
 SubObjectPropertyOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#hasIngredient>)
@@ -80,6 +86,7 @@ SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> ObjectSomeVa
 http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza
 
 -------------------------------------------------NEW EXPLANATION-----------------------------------------------
+
 Ontology(<http://www.example.com/explanation1>
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza>)
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food>)
@@ -90,6 +97,7 @@ SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.c
 http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza
 
 -------------------------------------------------NEW EXPLANATION-----------------------------------------------
+
 Ontology(<http://www.example.com/explanation1>
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> ObjectSomeValuesFrom(<http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase> <http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase>))
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
@@ -100,6 +108,7 @@ SubClassOf(ObjectSomeValuesFrom(<http://www.co-ode.org/ontologies/pizza/pizza.ow
 http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase
 
 -------------------------------------------------NEW EXPLANATION-----------------------------------------------
+
 Ontology(<http://www.example.com/explanation1>
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Food> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#Food>)
@@ -109,6 +118,7 @@ SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://
 http://www.co-ode.org/ontologies/pizza/pizza.owl#Food
 
 -------------------------------------------------NEW EXPLANATION-----------------------------------------------
+
 Ontology(<http://www.example.com/explanation1>
 SubClassOf(<http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana> <http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept>)
 )
