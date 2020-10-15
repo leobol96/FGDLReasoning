@@ -15,7 +15,9 @@ The project is made up of three main files.
 The Reasoner is static and always analyzes the same subclasses relationship. This because sometimes the lethe.jar and the kr_functions.jar crash for unknown reasons.
 So, to run the code simply from command line:
 
-python main.py
+**python main.py**
+
+It was not possible to create an executable because the owlready2 library has compatibility problems with pyinstaller.
 
 ## Dependencies
 
