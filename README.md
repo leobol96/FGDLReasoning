@@ -31,7 +31,7 @@ The main program uses the following dependencies:
 - re
 - random 
 
-So to run the code, please be sure to have all the dependencies installed on the pc.
+So to run the code, please be sure to have all the dependencies installed in the pc.
 
 ## At the end of the execution
 
