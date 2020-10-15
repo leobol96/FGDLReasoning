@@ -13,11 +13,11 @@ The project is made up of three main files.
 ## How to run the project
 
 The Reasoner is static and always analyzes the same subclasses relationship. This because sometimes the lethe.jar and the kr_functions.jar crash for unknown reasons.
-So, to run the code simply from command line:
+So, to execute the code, type from command line:
 
 **python main.py**
 
-It was not possible to create an executable because the owlready2 library has compatibility problems with pyinstaller.
+It was not possible to create an executable because the owlready2 library has compatibility problems with Pyinstaller.
 
 ## Dependencies
 
@@ -35,7 +35,7 @@ So to run the code, please be sure to have all the dependencies installed in the
 
 ## At the end of the execution
 
-After running the main.py the following plot will be printed :
+After running the main.py the following plots will be printed and save in the main directory :
 
 <table>
   <tr>
@@ -52,7 +52,7 @@ After running the main.py the following plot will be printed :
  </table>
 
 Moreover, you will be able to find all the justifications in the file FG_EXPLANATIONS.txt
-The follow is an example of justifications during the forgetting reasoning:
+The following is an example of justifications during the forgetting reasoning:
 
 
 -----------------------------------------SENTENCE TO PROVE--------------------------------------------------
